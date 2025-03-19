@@ -1,0 +1,50 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model items {
+  id        Int       @id @default(autoincrement())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @default(now())  // Set default to now
+  name      String    @db.VarChar(255)
+  quantity  Int
+  units     String
+  price     Int
+  imageSlug String?
+  order     order[]   // Relation to order
+  variants  Variant[] // Relation to variants
+}
+
+model order {
+  id           Int      @id @default(autoincrement())
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @default(now()) // This will automatically set updatedAt to the current date/time
+  name         String
+  mobileNumber String
+  quantity     Int
+  price        Int
+  itemId       Int
+  items        items    @relation(fields: [itemId], references: [id], map: "Order_itemId_fkey")
+
+  @@index([itemId], map: "Order_itemId_fkey")
+}
+
+model user {
+  id       Int    @id @default(autoincrement())
+  name     String
+  email    String @unique(map: "User_email_key")
+  password String
+}
+
+model Variant {
+  id     Int    @id @default(autoincrement())
+  flavor String
+  price  Int
+  itemId Int
+  item   items  @relation(fields: [itemId], references: [id])
+}
