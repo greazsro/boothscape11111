@@ -1,0 +1,9 @@
+{
+    "_id": "63",
+    "name": "Towel",
+    "variants": [
+        { "size": "Small", "flavor": "Classic", "price": 50 },
+        { "size": "Medium", "flavor": "Classic", "price": 70 },
+        { "size": "Large", "flavor": "Classic", "price": 90 }
+    ]
+}

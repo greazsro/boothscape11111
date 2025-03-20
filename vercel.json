@@ -1,0 +1,12 @@
+{
+    "builds": [
+      {
+        "src": "next.config.js",
+        "use": "@vercel/next"
+      }
+    ],
+    "hooks": {
+      "build": "npm run build && prisma generate"
+    }
+  }
+  
